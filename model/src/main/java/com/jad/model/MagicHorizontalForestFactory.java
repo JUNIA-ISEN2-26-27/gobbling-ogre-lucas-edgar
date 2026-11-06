@@ -1,6 +1,6 @@
 package com.jad.model;
 
-public class MagicHorizontalForestFactory extends AbstractForestFactory{
+public class MagicHorizontalForestFactory implements ForestFactory{
 
 
     public MagicHorizontalForestFactory() {

@@ -1,6 +1,6 @@
 package com.jad.model;
 
-public class MagicForestFactory extends AbstractForestFactory{
+public class MagicForestFactory implements ForestFactory{
 
     public MagicForestFactory() {
         super();
@@ -8,6 +8,6 @@ public class MagicForestFactory extends AbstractForestFactory{
 
     @Override
     public Forest make(final int width, final int heigh, final int density) {
-        return new RectangularForest(width, heigh, density);
+        return new MagicForest(width, heigh, density);
     }
 }

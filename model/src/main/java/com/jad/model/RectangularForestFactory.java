@@ -2,7 +2,7 @@ package com.jad.model;
 
 import java.awt.*;
 
-public class RectangularForestFactory extends AbstractForestFactory{
+public class RectangularForestFactory implements ForestFactory{
 
     public RectangularForestFactory() {
         super();

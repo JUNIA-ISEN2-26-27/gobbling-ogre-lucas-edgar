@@ -1,6 +1,6 @@
 package com.jad.model;
 
-public class MagicVerticalForestFactory extends AbstractForestFactory{
+public class MagicVerticalForestFactory implements ForestFactory{
 
     public MagicVerticalForestFactory() {
         super();
