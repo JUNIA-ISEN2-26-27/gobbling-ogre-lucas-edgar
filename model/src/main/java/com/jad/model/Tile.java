@@ -4,7 +4,8 @@ import java.util.Random;
 
 public enum Tile {
     EMPTY(true, ' '),
-    CHENE(false, 'c');
+    CHENE(false, 'c'),
+    ACACIA(false, 'a');
 
     final Boolean passable;
     Character character;
@@ -14,9 +15,9 @@ public enum Tile {
     }
     Character[][] sprite;
 
-    public Tile randomTile(){
+    public static Tile randomTile(){
         Random random = new Random();
-        int rand = random.nextInt(Tile.values().length);
-        return Tile.values()[rand];
+        int rand = random.nextInt(Tile.values().length-1);
+        return Tile.values()[rand+1];
     }
 }

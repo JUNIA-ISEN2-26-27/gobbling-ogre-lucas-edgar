@@ -1,5 +1,6 @@
 package com.jad.model;
 import java.awt.*;
+import java.util.Random;
 
 public abstract class AbstractForest implements Forest{
 
@@ -8,9 +9,9 @@ public abstract class AbstractForest implements Forest{
     private Boolean wrapHorizontal;
     private Boolean wrapVertical;
 
-    public AbstractForest(Dimension dimension, Tile[][] trees, Boolean wrapHorizontal, Boolean wrapVertical) {
+    public AbstractForest(Dimension dimension, int density, Boolean wrapHorizontal, Boolean wrapVertical) {
         this.dimension = dimension;
-        this.trees = trees;
+        makeRandomTrees(density);
     }
 
     public Character getxy(int x, int y){
@@ -46,6 +47,22 @@ public abstract class AbstractForest implements Forest{
                 throw new IllegalArgumentException("Position (" + x + ", " + y + ") is out of range");
             }
             return this.trees[y][x].character;
+        }
+    }
+
+    @Override
+    public void makeRandomTrees(int density) {
+        for (int i = 0; i < dimension.width; i++){
+            for (int j = 0; i < dimension.height; j++){
+                Random random = new Random();
+                int rand = random.nextInt(density);
+                if (rand != 0){
+                    trees[j][i] = Tile.EMPTY;
+                }
+                else{
+                    trees[j][i] = Tile.randomTile();
+                }
+            }
         }
     }
 
