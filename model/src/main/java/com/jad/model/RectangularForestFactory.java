@@ -4,7 +4,12 @@ import java.awt.*;
 
 public class RectangularForestFactory extends AbstractForestFactory{
 
-    public RectangularForestFactory(String forestNameMade, String factoryName,  Dimension dimension, Boolean wrapHorizontal, Boolean wrapVertical) {
-        super(forestNameMade, factoryName, dimension, wrapHorizontal, wrapVertical, );
+    public RectangularForestFactory() {
+        super();
+    }
+
+    @Override
+    public Forest make(final int width, final int heigh, final int density) {
+        return new RectangularForest(width, heigh, density);
     }
 }
