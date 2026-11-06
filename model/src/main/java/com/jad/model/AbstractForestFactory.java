@@ -1,16 +1,15 @@
 package com.jad.model;
 
 import java.awt.*;
-import java.util.List;
 
 public class AbstractForestFactory implements ForestFactory{
-    private final String factoryName;
-    private final Dimension dimension;
+    private String factoryName = "";
+    private Dimension dimension = null;
     private Tile[][] trees;
     private Boolean wrapHorizontal;
     private Boolean wrapVertical;
 
-    protected AbstractForestFactory(String forestNameMade, String factoryName, Dimension dimension, Boolean wrapHorizontal, Boolean wrapVertical) {
+    protected AbstractForestFactory() {
         this.factoryName = factoryName;
         this.dimension = dimension;
         this.wrapHorizontal = wrapHorizontal;
@@ -18,7 +17,7 @@ public class AbstractForestFactory implements ForestFactory{
     }
 
     @Override
-    public Forest make(String forestName) {
+    public Forest make() {
         return this.make();
     }
 }

@@ -1,15 +1,15 @@
 package com.jad.model;
 
-import com.jad.view.Pixel;
+import com.jad.view.Tile;
 
 import java.awt.*;
 
 abstract class AbstractPixelMatrix {
 
     protected final Dimension dimension;
-    protected final Tile[][] tile;
+    protected final com.jad.model.Tile[][] tile;
 
-    AbstractPixelMatrix(Dimension dimension, Tile[][] tile) {
+    AbstractPixelMatrix(Dimension dimension, com.jad.model.Tile[][] tile) {
         this.dimension = dimension;
         this.tile = tile;
     }
@@ -22,14 +22,18 @@ abstract class AbstractPixelMatrix {
         return this.dimension.width;
     }
 
-    public Pixel getPixelAt(Point position){
-        return this.getPixelAt(position.x, position.y);
+    public Tile getPixelAt(Point position){
+        return this.getTileAt(position.x, position.y);
     }
 
-    public Pixel getPixelAt(final int x, final int y){
+    private Tile getTileAt(int x, int y) {
+        return null;
+    }
+
+    public com.jad.model.Tile getPixelAt(final int x, final int y){
         if ((x < 0) || (x >= this.dimension.width) || (y < 0) || (y >= this.dimension.height)) {
             throw new IllegalArgumentException("Position (" + x + ", " + y + ") is out of range");
         }
-        return this.pixels[y][x];
+        return this.tile[y][x];
     }
 }
