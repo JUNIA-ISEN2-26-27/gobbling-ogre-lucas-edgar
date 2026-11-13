@@ -18,7 +18,7 @@ public abstract class AbstractForest implements Forest{
         makeRandomTrees(density);
     }
 
-    public Character getxy(int x, int y){
+    public Character[][] getxy(int x, int y){
         if (wrapVertical && wrapHorizontal){
             while (y < 0){
                 y = this.dimension.width+y;
@@ -26,32 +26,43 @@ public abstract class AbstractForest implements Forest{
             while (x < 0){
                 x = this.dimension.height+x;
             }
-            return this.trees[y%dimension.height][x%dimension.width].character;
+            return this.trees[y%dimension.height][x%dimension.width].sprite;
         }
         else if (wrapHorizontal){
             if ((y < 0) || (y >= this.dimension.height)) {
-                return Tile.randomTile().character;
+                return Tile.randomTile().sprite;
             }
             while (x < 0){
                 x = this.dimension.height+x;
             }
-            return this.trees[y][x%dimension.width].character;
+            return this.trees[y][x%dimension.width].sprite;
         }
         else if (wrapVertical){
             if ((x < 0) || (x >= this.dimension.width)) {
-                return Tile.randomTile().character;
+                return Tile.randomTile().sprite;
             }
             while (y < 0){
                 y = this.dimension.width+y;
             }
-            return this.trees[y%dimension.height][x].character;
+            return this.trees[y%dimension.height][x].sprite;
         }
         else{
             if ((x < 0) || (x >= this.dimension.width) || (y < 0) || (y >= this.dimension.height)) {
-                return Tile.randomTile().character;
+                return Tile.randomTile().sprite;
             }
-            return this.trees[y][x].character;
+            return this.trees[y][x].sprite;
         }
+    }
+
+    @Override
+    public Character[][][][] getx1y1x2y2(int x1, int y1, int x2, int y2){
+        Character[][][][] screen = new Character[y2-y1][x2-x1][3][6];
+        for (int i = x1; i < (x2-x1); i++){
+            for (int j = y1; j < (y2-y1); j++){
+                screen[j][i] = this.getxy(i,j);
+            }
+        }
+        return screen;
     }
 
     @Override
@@ -80,9 +91,23 @@ public abstract class AbstractForest implements Forest{
         return this.dimension.width;
     }
 
+    @Override
+    public Dimension getDimension() {
+        return dimension;
+    }
+
     public Boolean isPosXY(int x, int y){
         return trees[y][x].passable;
     }
 
 
+    @Override
+    public Boolean getWrapHorizontal() {
+        return wrapHorizontal;
+    }
+
+    @Override
+    public Boolean getWrapVertical() {
+        return wrapVertical;
+    }
 }

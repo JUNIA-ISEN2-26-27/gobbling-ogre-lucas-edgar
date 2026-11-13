@@ -10,7 +10,7 @@ public record Tile(boolean obstacle) implements IView {
     }
 
     @Override
-    public void diplay() {
+    public void display() {
 
     }
 }

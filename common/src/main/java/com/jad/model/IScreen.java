@@ -7,5 +7,5 @@ public interface IScreen {
 
     int getWidth();
 
-    Tile getPixelAt(int x, int y);
+    Character[][] getxy(int x, int y);
 }
