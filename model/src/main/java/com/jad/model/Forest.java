@@ -1,8 +1,10 @@
 package com.jad.model;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public interface Forest {
+    public void setChilds(int numberChild);
     public Boolean isPosXY(int x, int y);
 
     public Character[][] getxy(int x, int y);

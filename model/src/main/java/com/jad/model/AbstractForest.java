@@ -10,13 +10,60 @@ public abstract class AbstractForest implements Forest{
     private Boolean wrapHorizontal;
     private Boolean wrapVertical;
 
+    public void setChilds(int numberOfChilds) {
+        for (int i = 0; i < numberOfChilds; i++){
+            childs.add(new Child(getSpaceTile()));
+        }
+    }
+
+    private ArrayList<Child> childs = new ArrayList<>();
+    private int numberOfChilds;
+
+    public Point getSpaceTile(){
+        Boolean tileFound = false;
+        Random random = new Random();
+        Point tile;
+        do {
+            tile = new Point(random.nextInt(this.dimension.width), random.nextInt(this.dimension.height));
+            if (this.isPosXY(tile.x, tile.y)){
+                tileFound = true;
+            }
+        } while (!tileFound);
+        return tile;
+    }
+
+    public Character[][] getChildAtXY(int x, int y) {
+        for (int i = 0; i < childs.size(); i++){
+            if (childs.get(i).getPos().x == x){
+                if (childs.get(i).getPos().y == y){
+                    return childs.get(i).getSprite();
+                }
+            }
+        }
+        return Tile.EMPTY.sprite;
+    }
+
+    public Boolean isChildAtXY(int x, int y) {
+        for (int i = 0; i < childs.size(); i++){
+            if (childs.get(i).getPos().x == x){
+                if (childs.get(i).getPos().y == y){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public AbstractForest(Dimension dimension, int density, Boolean wrapHorizontal, Boolean wrapVertical) {
         this.dimension = dimension;
         this.trees = new Tile[this.dimension.height][this.dimension.width];
         this.wrapHorizontal = wrapHorizontal;
         this.wrapVertical = wrapVertical;
         makeRandomTrees(density);
+
     }
+
+
 
     public Character[][] getxy(int x, int y){
         if (wrapVertical && wrapHorizontal){
@@ -26,8 +73,11 @@ public abstract class AbstractForest implements Forest{
             while (x < 0){
                 x = this.dimension.height+x;
             }
+            if (isChildAtXY(x,y)){
+                return getChildAtXY(x,y);
+            }else{
             return this.trees[y%dimension.height][x%dimension.width].sprite;
-        }
+        }}
         else if (wrapHorizontal){
             if ((y < 0) || (y >= this.dimension.height)) {
                 return Tile.randomTile().sprite;
@@ -35,8 +85,11 @@ public abstract class AbstractForest implements Forest{
             while (x < 0){
                 x = this.dimension.height+x;
             }
+            if (isChildAtXY(x,y)){
+                return getChildAtXY(x,y);
+            }else{
             return this.trees[y][x%dimension.width].sprite;
-        }
+        }}
         else if (wrapVertical){
             if ((x < 0) || (x >= this.dimension.width)) {
                 return Tile.randomTile().sprite;
@@ -44,14 +97,20 @@ public abstract class AbstractForest implements Forest{
             while (y < 0){
                 y = this.dimension.width+y;
             }
+            if (isChildAtXY(x,y)){
+                return getChildAtXY(x,y);
+            }else{
             return this.trees[y%dimension.height][x].sprite;
-        }
+        }}
         else{
             if ((x < 0) || (x >= this.dimension.width) || (y < 0) || (y >= this.dimension.height)) {
                 return Tile.randomTile().sprite;
             }
+            if (isChildAtXY(x,y)){
+                return getChildAtXY(x,y);
+            }else{
             return this.trees[y][x].sprite;
-        }
+        }}
     }
 
     @Override
@@ -97,7 +156,7 @@ public abstract class AbstractForest implements Forest{
     }
 
     public Boolean isPosXY(int x, int y){
-        return trees[y][x].passable;
+        return trees[y][x].passable & !isChildAtXY(x,y);
     }
 
 
@@ -110,4 +169,5 @@ public abstract class AbstractForest implements Forest{
     public Boolean getWrapVertical() {
         return wrapVertical;
     }
+
 }

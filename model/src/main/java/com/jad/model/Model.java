@@ -9,7 +9,9 @@ public class Model implements IModel {
     private final int density = 5;
     private final int width = 10;
     private final int height = 10;
-    private final int forestType = 3;
+    private final int forestType = 0;
+    private final int numberOfChild = 20;
+
     public int getWidth() {
         return width;
     }
@@ -22,6 +24,7 @@ public class Model implements IModel {
     public Model() {
         AbstractForestFactory factory = new AbstractForestFactory();
         this.forest = factory.createForest(forestType%4, width, height, density);
+        this.forest.setChilds(this.numberOfChild);;
     }
 
     @Override
