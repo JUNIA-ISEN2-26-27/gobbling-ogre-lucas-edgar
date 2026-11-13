@@ -32,7 +32,7 @@ public class View implements IView {
 
     @Override
     public void display() {
-        IScreen screen = this.model.getScreen(new Dimension(model.getWidth()+1, model.getHeight()+1), 0, 0);
+        IScreen screen = this.model.getScreen(new Dimension(model.getWidth()+1, model.getHeight()+1), 600, 10);
         StringBuilder screenTxt = new StringBuilder();
         for (int y = -1; y <= screen.getHeight(); y++) {
             for (int i = 0; i < 3; i++){

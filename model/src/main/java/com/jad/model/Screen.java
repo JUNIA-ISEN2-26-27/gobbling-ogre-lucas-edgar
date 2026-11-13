@@ -44,6 +44,7 @@ public class Screen implements IScreen {
             while (x < 0){
                 x = this.dimension.height+x;
             }
+            System.out.println(this.dimension.width + " " + this.getWidth());
             return this.trees[y][x%dimension.width];
         }
         else if (wrapVertical){

@@ -56,10 +56,10 @@ public abstract class AbstractForest implements Forest{
 
     @Override
     public Character[][][][] getx1y1x2y2(int x1, int y1, int x2, int y2){
-        Character[][][][] screen = new Character[y2-y1][x2-x1][3][6];
-        for (int i = x1; i < (x2-x1); i++){
-            for (int j = y1; j < (y2-y1); j++){
-                screen[j][i] = this.getxy(i,j);
+        Character[][][][] screen = new Character[Math.abs(y2-y1)][Math.abs(x2-x1)][3][6];
+        for (int i = 0; i < Math.abs(x2-x1); i++){
+            for (int j = 0; j < Math.abs(y2-y1); j++){
+                screen[j][i] = this.getxy(i+x1,j+y1);
             }
         }
         return screen;
